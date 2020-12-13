@@ -1,10 +1,10 @@
-package Exceptions;
+package exceptions;
 
-public class ManageSateliteException extends Exception {
+public class ManageStateException extends Exception {
     
     String message;
 
-    public ManageSateliteException(String message) {
+    public ManageStateException(String message) {
 
         this.message = message;
     }

@@ -1,7 +1,7 @@
-package ManageSatelite;
+package manageStates;
 import java.util.ArrayList;
 
-import Exceptions.ManageSateliteException;
+import exceptions.ManageStateException;
 
 public class Satelite {
 
@@ -28,12 +28,12 @@ public class Satelite {
 	}
 
 	// Add observation to a list
-	public void addObsevation(String observation) throws ManageSateliteException {
+	public void addObsevation(String observation) throws ManageStateException {
 		if (!(observation == null || observation == "")) {
 			observations.add(observation);
 
 		}else 
-			throw new ManageSateliteException("Trying to ad a null or empty observation");
+			throw new ManageStateException("Trying to ad a null or empty observation");
 	}
 	
 	//add battery unit
