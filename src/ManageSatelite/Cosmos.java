@@ -30,11 +30,22 @@ public class Cosmos {
 			myReader.close();
 		}catch(FileNotFoundException e) {
 			System.out.println("Cant read the file");
-		}
-		
+		}		
 		return data;
 	}
 	
+	public	static void entryFilter(String in[]) throws ManageSateliteException{
+		for (int i = 0; i < in.length; i++){
+			if(in[i].equals(null)){
+				throw new ManageSateliteException("Wrong input format");
+			}
+			String aux[] = in[i].split(":");
+			if(!(aux[0].equals("OBS") || aux[0].equals("SAT1") || aux[0].equals("SAT2"))) {
+				throw new ManageSateliteException("Not a valid format for the problem");
+			}
+		}		
+	}
+
 	public static void getInfo(String data[]) {
 		
 	}
@@ -58,9 +69,11 @@ public class Cosmos {
 		
 		//Data from file
 		String data[] = readFile(input);
-		for(int i =0; i< data.length; i++) {
-			System.out.println(data[i]);
-		}
+		
+		//Check syntax of file
+		entryFilter(data);
+
+
 		
 	}
 	
