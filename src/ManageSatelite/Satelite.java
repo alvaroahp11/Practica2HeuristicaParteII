@@ -1,3 +1,4 @@
+package ManageSatelite;
 import java.util.ArrayList;
 
 import Exceptions.ManageSateliteException;
@@ -5,7 +6,7 @@ import Exceptions.ManageSateliteException;
 public class Satelite {
 
 	private int battery;
-	private boolean watchArea; // false la franja unica y compartida, true para la franja compartida
+	private boolean watchArea; // false la franja es unica y compartida, true para la franja compartida
 	private ArrayList<String> observations;
 
 	public Satelite(int battery, boolean watchArea) {

@@ -1,3 +1,4 @@
+package ManageSatelite;
 public class State {
 	
 	private Satelite SAT1;
