@@ -8,11 +8,19 @@ public class Satelite {
 	private int battery;
 	private boolean watchArea; // false la franja es unica y compartida, true para la franja compartida
 	private ArrayList<String> observations;
+	private int observationCost;
+	private int transmitionCost;
+	private int spinCost;
+	private int chargeUnit;
 
-	public Satelite(int battery, boolean watchArea) {
+	public Satelite(int battery, int observationCost, int transmitionCost, int spinCost, int chargeUnit) {
 		this.battery = battery;
-		this.watchArea = watchArea;
+		this.watchArea = true;
 		this.observations = new ArrayList<String>();
+		this.observationCost = observationCost;
+		this.transmitionCost = transmitionCost;
+		this.spinCost = spinCost;
+		this.chargeUnit = chargeUnit;
 	}
 
 	public int getBattery() {
@@ -36,17 +44,19 @@ public class Satelite {
 			throw new ManageStateException("Trying to ad a null or empty observation");
 	}
 	
-	//add battery unit
+	//add battery 
 	public void chargeBatter() {
-		this.battery+=1;
+		this.battery+=this.chargeUnit;
 	}
 	
-	//Change watch area
+	//Change watch area and uncharge battery
 	public void changeWatchArea() {
 		if(this.watchArea) {
 			this.watchArea = false;
+			this.battery-= this.spinCost;
 		}else {
 			this.watchArea = true;
+			this.battery -= this.spinCost;
 		}
 	}
 

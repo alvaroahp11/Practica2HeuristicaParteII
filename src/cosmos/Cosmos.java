@@ -33,7 +33,7 @@ public class Cosmos {
 		}
 		return data;
 	}
-
+	//Comprobamos que tiene el formato y eliminamos lo que va antes de cada linea
 	public static String[] dataFilter(String data[]) throws CosmosException {
 
 		for (int i = 0; i < data.length; i++) {
@@ -54,23 +54,45 @@ public class Cosmos {
 
 	public static State firstState(String data[]) {
 		State intialState = null;
-		for (int i = 0; i < data.length; i++) {
-			// Eliminamos lo que va antes de lo valores
-			if (i == 0) {
+		Satelite SAT1 = null;
+		Satelite SAT2 = null;
+		boolean area[][] = new boolean[4][12];
+			
+				
+		// String line[] = data[1].split(";");
+		// for(int j=0; j< line.length; j++) {
+		// 	System.out.println(line);
+		// }
 
-				String line[] = data[i].split(";");
-				for (int j = 0; j < data.length; j++) {
-					System.out.println(line[j]);
-				}
+		// String coordinate[] = data[2].split(";");
+		// for (int j = 0; j < coordinate.length; j++) {
+		// 	coordinate[j];
+		// 	System.out.println(coordinate[j]);
+		// }	
 
-			} else if (i == 2) {
+	
+		String coordinate[] = data[0].split(";");
 
-			} else {
+		
+		for (int j = 0; j < coordinate.length; j++) {
+			int start = (coordinate[j].indexOf("(") + 1);
+			int end = coordinate[j].indexOf(",");			
+			int x = Integer.parseInt(coordinate[j].substring(start, end));
 
-			}
 
-			String linea[] = data[i].split(";");
-		}
+			coordinate[j] = coordinate[j].substring(end + 1);
+			end = coordinate[j].indexOf(")") - 1;
+			System.out.println(coordinate[j].substring(end));
+		
+			//int y = Integer.parseInt(coordinate[j].substring(end));
+
+			//System.out.println(x + " " + y);
+
+
+		}	
+		
+
+		
 
 		return intialState;
 	}
@@ -103,7 +125,7 @@ public class Cosmos {
 			throw e;
 		}
 
-		firstState(data);
+		State initialState = firstState(data);
 
 	}
 
