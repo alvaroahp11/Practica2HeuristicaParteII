@@ -58,43 +58,29 @@ public class Cosmos {
 		Satelite SAT2 = null;
 		boolean area[][] = new boolean[4][12];
 			
-				
-		// String line[] = data[1].split(";");
-		// for(int j=0; j< line.length; j++) {
-		// 	System.out.println(line);
-		// }
-
-		// String coordinate[] = data[2].split(";");
-		// for (int j = 0; j < coordinate.length; j++) {
-		// 	coordinate[j];
-		// 	System.out.println(coordinate[j]);
-		// }	
-
-	
-		String coordinate[] = data[0].split(";");
-
-		
+		//Aquí se extraen los valores de las coordenadas 
+		String coordinate[] = data[0].split(";");	
 		for (int j = 0; j < coordinate.length; j++) {
 			int start = (coordinate[j].indexOf("(") + 1);
 			int end = coordinate[j].indexOf(",");			
 			int x = Integer.parseInt(coordinate[j].substring(start, end));
 
-
 			coordinate[j] = coordinate[j].substring(end + 1);
-			end = coordinate[j].indexOf(")") - 1;
-			System.out.println(coordinate[j].substring(end));
-		
-			//int y = Integer.parseInt(coordinate[j].substring(end));
-
-			//System.out.println(x + " " + y);
-
-
+			end = coordinate[j].indexOf(")");
+			int y = Integer.parseInt(coordinate[j].substring(0 , end));
+			area[x][y] = true;
 		}	
 		
-
+		//aquí se extraen las configuraciones del satelite 1  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
+		String satData[] = data[1].split(";"); 
+		SAT1 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 		
+		//aquí se extraen las configuraciones del satelite 2  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
+		satData = null;
+		satData = data[2].split(";");
+		SAT2 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 
-		return intialState;
+		return intialState = new State(SAT1, SAT2, area);
 	}
 
 	public static void main(String args[]) throws CosmosException, FileNotFoundException {
