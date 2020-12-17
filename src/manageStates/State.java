@@ -14,7 +14,8 @@ public class State {
 	private State parent;
 	private int costValue;
 	private int heuristicValue;
-	private int obsevedNum;
+	//private int obsevedNum;
+	private String parentAction;
 
 
 	//Initial constructor
@@ -23,7 +24,9 @@ public class State {
     	this.SAT2 = SAT2;
     	this.area = area;
 		this.j = 0;
-		this.setObsevedNum(0);
+		//Que hace
+		//this.setObsevedNum(0);
+		this.parentAction = "";
     }
 
 	
@@ -44,8 +47,11 @@ public class State {
 		    chld.setJ(this.getJ() + 1);
 		else 
 		    chld.setJ(0);
+
+		chld.setParentAction("sat1NothingSat2Nothing");
 		    
 		return chld;
+
 	}
 	
 	//EN CASO DE ERROR COMPROBAR AQUI, SENTIMOS QUE NOS FALTA ALGO
@@ -125,6 +131,17 @@ public class State {
     }
 
 	private State sat1NothingSat2Transmit(){
+       State chld = this;     
+        chld.setParent(this);
+        chld.setCostValue(this.getCostValue() + 1);
+        if(!(this.getJ() == 11))
+            chld.setJ(this.getJ() + 1);
+        else 
+            chld.setJ(0);
+        
+        if(chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()) {
+            
+        }
         
         return null;
     }
@@ -277,20 +294,31 @@ public class State {
 
 
 
-
-    public int getObsevedNum() {
-        return obsevedNum;
-    }
-
-
-
-
-
-    public void setObsevedNum(int obsevedNum) {
-        this.obsevedNum = obsevedNum;
-    }
+//
+//    public int getObsevedNum() {
+//        return obsevedNum;
+//    }
+//
+//
+//
+//
+//
+//    public void setObsevedNum(int obsevedNum) {
+//        this.obsevedNum = obsevedNum;
+//    }
 
 	private void removeObservtioninArea(int i, int j){
 		this.area[i][j] = null;
 	}
+
+
+
+    public String getParentAction() {
+        return parentAction;
+    }
+
+
+    public void setParentAction(String parentAction) {
+        this.parentAction = parentAction;
+    }
 }
