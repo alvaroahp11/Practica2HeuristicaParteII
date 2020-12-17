@@ -56,7 +56,7 @@ public class Cosmos {
 		State intialState = null;
 		Satelite SAT1 = null;
 		Satelite SAT2 = null;
-		boolean area[][] = new boolean[4][12];
+		String area[][] = new String[4][12];
 			
 		//Aquí se extraen los valores de las coordenadas 
 		String coordinate[] = data[0].split(";");	
@@ -68,16 +68,28 @@ public class Cosmos {
 			coordinate[j] = coordinate[j].substring(end + 1);
 			end = coordinate[j].indexOf(")");
 			int y = Integer.parseInt(coordinate[j].substring(0 , end));
-			area[x][y] = true;
+			area[x][y] = "O" + (j+1);
 		}	
+		
+		
 		
 		//aquí se extraen las configuraciones del satelite 1  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
 		String satData[] = data[1].split(";"); 
+		
+	    //quitar espacios en todos los satData[]
+		for(int i = 0; i < satData.length; i++) {
+		    satData[i] = satData[i].replaceAll(" ", "");
+		}
 		SAT1 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 		
 		//aquí se extraen las configuraciones del satelite 2  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
 		satData = null;
 		satData = data[2].split(";");
+		
+		//quitar espacios en todos los satData[]
+		for(int i = 0; i < satData.length; i++) {
+            satData[i] = satData[i].replaceAll(" ", "");
+        }
 		SAT2 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 
 		return intialState = new State(SAT1, SAT2, area);

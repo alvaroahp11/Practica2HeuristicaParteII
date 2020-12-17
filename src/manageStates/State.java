@@ -7,21 +7,23 @@ public class State {
 	
 	private Satelite SAT1;
 	private Satelite SAT2;
-	private boolean area [][];
+	private String area [][];
 	private int j;
 
 	
 	private State parent;
 	private int costValue;
 	private int heuristicValue;
+	private int obsevedNum;
 
 
 	//Initial constructor
-    public State (Satelite SAT1, Satelite SAT2, boolean area[][]) {
+    public State (Satelite SAT1, Satelite SAT2, String area[][]) {
     	this.SAT1 = SAT1;
     	this.SAT2 = SAT2;
     	this.area = area;
 		this.j = 0;
+		this.setObsevedNum(0);
     }
 
 	
@@ -34,15 +36,181 @@ public class State {
     }
 
 
-	private State sat1NadaSat2Nada (){
+	private State sat1NothingSat2Nothing(){
 		State chld = this;
 		chld.setParent(this);
 		chld.setCostValue(this.getCostValue() + 1);
-		chld.setJ(this.getJ() + 1);
-
+		if(!(this.getJ() == 11))
+		    chld.setJ(this.getJ() + 1);
+		else 
+		    chld.setJ(0);
+		    
 		return chld;
 	}
+	
+	//EN CASO DE ERROR COMPROBAR AQUI, SENTIMOS QUE NOS FALTA ALGO
+	//EN CASO DE ERROR COMPROBAR AQUI, SENTIMOS QUE NOS FALTA ALGO
+	//EN CASO DE ERROR COMPROBAR AQUI, SENTIMOS QUE NOS FALTA ALGO
+	//EN CASO DE ERROR COMPROBAR AQUI, SENTIMOS QUE NOS FALTA ALGO
+	private State sat1NothingSat2Observe(){
+		State chld = this;		
+		chld.setParent(this);
+        chld.setCostValue(this.getCostValue() + 1);
+		if(!(this.getJ() == 11))
+            chld.setJ(this.getJ() + 1);
+        else 
+            chld.setJ(0);
 
+		
+		if(chld.getSAT2().isWatchArea() && ((area[2][chld.getJ()] != null) || (area[1][chld.getJ()] != null)) && (chld.getSAT2().getBattery() >= chld.getSAT2().getObservationCost())){
+			//Compartida 
+		    if(area[2][chld.getJ()] != null){
+		        chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
+				chld.removeObservtioninArea(2, chld.getJ());
+				
+			}else {
+			    chld.getSAT2().pushObsevation(area[1][chld.getJ()]);
+				chld.removeObservtioninArea(1, chld.getJ());				
+			}
+		    return chld;
+			
+		}else if(!chld.SAT2.isWatchArea() && ((area[3][chld.getJ()] != null) || (area[2][chld.getJ()] != null)) && (chld.getSAT2().getBattery() >= chld.getSAT2().getObservationCost())){
+			//No compartida
+		    if(area[3][chld.getJ()] != null){
+                chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
+                chld.removeObservtioninArea(3, chld.getJ());
+                
+            }else {
+                chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
+                chld.removeObservtioninArea(2, chld.getJ());                
+            }
+            return chld;
+		}
+		//Si SAT2 no puede observar
+		return null;
+	}
+
+	
+	private State sat1NothingSat2Spin(){
+	    State chld = this;     
+        chld.setParent(this);
+        chld.setCostValue(this.getCostValue() + 1);
+        if(!(this.getJ() == 11))
+            chld.setJ(this.getJ() + 1);
+        else 
+            chld.setJ(0);
+        
+        
+        if(chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
+			chld.getSAT2().changeWatchArea();
+			return chld;
+        }   
+        return null;
+    }
+
+	private State sat1NothingSat2Charge(){
+		State chld = this;     
+        chld.setParent(this);
+        chld.setCostValue(this.getCostValue() + 1);
+        if(!(this.getJ() == 11))
+            chld.setJ(this.getJ() + 1);
+        else 
+            chld.setJ(0);
+		
+		if(!(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
+		    chld.getSAT2().chargeBattery();
+		}
+        
+        return null;
+    }
+
+	private State sat1NothingSat2Transmit(){
+        
+        return null;
+    }
+
+	private State sat1SpinSat2Nothing(){
+        
+        return null;
+    }
+
+	private State sat1SpinSat2Observe(){
+        
+        return null;
+    }
+	private State sat1SpinSat2Spin(){
+        
+        return null;
+    }
+	private State sat1SpinSat2Charge(){
+        
+        return null;
+    }
+	private State sat1SpinSat2Transmit(){
+        
+        return null;
+    }
+
+	private State sat1ObserveSat2Nothing(){
+        
+        return null;
+    }
+	private State sat1ObserveSat2Observe(){
+        
+        return null;
+    }
+	private State sat1ObserveSat2Spin(){
+        
+        return null;
+    }
+	private State sat1ObserveSat2Charge(){
+        
+        return null;
+    }
+	private State sat1ObserveSat2Transmit(){
+        
+        return null;
+    }
+	private State sat1ChargeSat2Nothing(){
+        
+        return null;
+    }
+	private State sat1ChargeSat2Observe(){
+        
+        return null;
+    }
+	private State sat1ChargeSat2Spin(){
+        
+        return null;
+    }
+	private State sat1ChargeSat2Charge(){
+        
+        return null;
+    }
+	private State sat1ChargeSat2Transmit(){
+        
+        return null;
+    }
+	private State sat1TransSat2Nothing(){
+        
+        return null;
+    }
+	private State sat1TransSat2Observe(){
+        
+        return null;
+    }
+	private State sat1TransSat2Spin(){
+        
+        return null;
+    }
+	private State sat1TransSat2Charge(){
+        
+        return null;
+    }
+	private State sat1TransSat2Transmit(){
+        
+        return null;
+    } 
 
 
 	public boolean isFinal(){
@@ -66,11 +234,11 @@ public class State {
 		SAT2 = sAT2;
 	}
 
-	public boolean[][] getArea() {
+	public String[][] getArea() {
 		return area;
 	}
 
-	public void setArea(boolean[][] area) {
+	public void setArea(String[][] area) {
 		this.area = area;
 	}
 
@@ -104,5 +272,25 @@ public class State {
 
 	public void setHeuristicValue(int heuristicValue) {
 		this.heuristicValue = heuristicValue;
+	}
+
+
+
+
+
+    public int getObsevedNum() {
+        return obsevedNum;
+    }
+
+
+
+
+
+    public void setObsevedNum(int obsevedNum) {
+        this.obsevedNum = obsevedNum;
+    }
+
+	private void removeObservtioninArea(int i, int j){
+		this.area[i][j] = null;
 	}
 }

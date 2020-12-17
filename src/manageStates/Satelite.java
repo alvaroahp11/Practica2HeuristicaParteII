@@ -1,29 +1,36 @@
 package manageStates;
 import java.util.ArrayList;
 
-import exceptions.ManageStateException;
-
 public class Satelite {
 
 	private int battery;
-	private boolean watchArea; // false la franja es unica y compartida, true para la franja compartida
+    private boolean watchArea; // false la franja es unica y compartida, true para la franja compartida
 	private ArrayList<String> observations;
 	private int observationCost;
 	private int transmitionCost;
 	private int spinCost;
 	private int chargeUnit;
+	private int maxBattery;
 
+	//Solo se usa para el estado inicial
 	public Satelite(int battery, int observationCost, int transmitionCost, int spinCost, int chargeUnit) {
 		this.battery = battery;
-		this.watchArea = true;
+		this.watchArea = false;
 		this.observations = new ArrayList<String>();
-		this.observationCost = observationCost;
-		this.transmitionCost = transmitionCost;
+		this.setObservationCost(observationCost);
+		this.setTransmitionCost(transmitionCost);
 		this.spinCost = spinCost;
 		this.chargeUnit = chargeUnit;
+		this.maxBattery = battery;
 	}
 
-	public int getBattery() {
+	
+	
+	public int getMaxBattery() {
+        return maxBattery;
+    }
+
+    public int getBattery() {
 		return battery;
 	}
 
@@ -31,21 +38,23 @@ public class Satelite {
 		return watchArea;
 	}
 
-	public ArrayList<String> getObservations() {
-		return observations;
+	public String popObservations() {
+	    if(observations.size() > 0)
+	        return observations.get(0);
+	    return null;
 	}
 
 	// Add observation to a list
-	public void addObsevation(String observation) throws ManageStateException {
+	public void pushObsevation(String observation) {
 		if (!(observation == null || observation == "")) {
+	          this.battery-= this.observationCost;
 			observations.add(observation);
 
-		}else 
-			throw new ManageStateException("Trying to ad a null or empty observation");
+		}			
 	}
 	
 	//add battery 
-	public void chargeBatter() {
+	public void chargeBattery() {
 		this.battery+=this.chargeUnit;
 	}
 	
@@ -59,5 +68,42 @@ public class Satelite {
 			this.battery -= this.spinCost;
 		}
 	}
+
+    public int getTransmitionCost() {
+        return transmitionCost;
+    }
+
+    public void setTransmitionCost(int transmitionCost) {
+        this.transmitionCost = transmitionCost;
+    }
+
+    public int getObservationCost() {
+        return observationCost;
+    }
+
+    public void setObservationCost(int observationCost) {
+        this.observationCost = observationCost;
+    }
+    
+    public int getSpinCost() {
+        return spinCost;
+    }
+
+    public void setSpinCost(int spinCost) {
+        this.spinCost = spinCost;
+    }
+
+    public int getChargeUnit() {
+        return chargeUnit;
+    }
+
+    public void setChargeUnit(int chargeUnit) {
+        this.chargeUnit = chargeUnit;
+    }
+
+
+    public void setWatchArea(boolean watchArea) {
+        this.watchArea = watchArea;
+    }
 
 }
