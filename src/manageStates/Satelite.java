@@ -21,7 +21,7 @@ public class Satelite {
 		this.setTransmitionCost(transmitionCost);
 		this.spinCost = spinCost;
 		this.chargeUnit = chargeUnit;
-		this.maxBattery = battery;
+		this.maxBattery = battery;	
 	}
 
 	
@@ -68,6 +68,12 @@ public class Satelite {
 			this.battery -= this.spinCost;
 		}
 	}
+	
+	public void transmit() {
+		this.observations.remove(0);
+		this.battery-= this.transmitionCost;
+	}
+	
 
     public int getTransmitionCost() {
         return transmitionCost;
@@ -105,5 +111,17 @@ public class Satelite {
     public void setWatchArea(boolean watchArea) {
         this.watchArea = watchArea;
     }
+
+
+
+	public ArrayList<String> getObservations() {
+		return observations;
+	}
+
+
+
+
+    
+  
 
 }
