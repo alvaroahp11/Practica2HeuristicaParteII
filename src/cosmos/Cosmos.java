@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import manageStates.*;
 import exceptions.CosmosException;
+import searchAlgorithms.*;
 
 public class Cosmos {
 
@@ -124,6 +125,15 @@ public class Cosmos {
 		}
 
 		State initialState = firstState(data);
+
+		
+
+		State finalState = AStarAlgorithm.aStartInit(initialState);
+		
+		
+		
+		
+		
 
 	}
 

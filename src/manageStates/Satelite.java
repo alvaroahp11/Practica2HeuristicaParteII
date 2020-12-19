@@ -12,7 +12,11 @@ public class Satelite {
 	private int chargeUnit;
 	private int maxBattery;
 
-	//Solo se usa para el estado inicial
+	
+
+
+
+    //Solo se usa para el estado inicial
 	public Satelite(int battery, int observationCost, int transmitionCost, int spinCost, int chargeUnit) {
 		this.battery = battery;
 		this.watchArea = false;
@@ -22,6 +26,7 @@ public class Satelite {
 		this.spinCost = spinCost;
 		this.chargeUnit = chargeUnit;
 		this.maxBattery = battery;	
+		
 	}
 
 	
