@@ -41,7 +41,8 @@ public class State {
     public State(State copy) {
         this.SAT1 = new Satelite(copy.getSAT1());
         this.SAT2 = new Satelite(copy.getSAT2());
-        this.area = copy.getArea().clone();
+
+        this.area = copy.area2(copy);
         this.j = copy.getJ();
         this.parent = copy.getParent();
         this.costValue = copy.getCostValue();
@@ -57,84 +58,107 @@ public class State {
         if ((aux = sat1NothingSat2Nothing()) != null) {
             childrens.add(aux);
         }
-
+        
+        aux = null;
         if ((aux = sat1NothingSat2Observe()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1NothingSat2Spin()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1NothingSat2Charge()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1NothingSat2Transmit()) != null) {
             childrens.add(aux);
         }
+        aux = null;
 
         if ((aux = sat1SpinSat2Nothing()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1SpinSat2Observe()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1SpinSat2Spin()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1SpinSat2Charge()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1SpinSat2Transmit()) != null) {
             childrens.add(aux);
         }
+        aux = null;
 
         if ((aux = sat1ObserveSat2Nothing()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ObserveSat2Observe()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ObserveSat2Spin()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ObserveSat2Charge()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ObserveSat2Transmit()) != null) {
             childrens.add(aux);
         }
-
+        aux = null;
         if ((aux = sat1ChargeSat2Nothing()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ChargeSat2Observe()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ChargeSat2Spin()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ChargeSat2Charge()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1ChargeSat2Transmit()) != null) {
             childrens.add(aux);
         }
-
+        aux = null;
         if ((aux = sat1TransSat2Nothing()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1TransSat2Observe()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1TransSat2Spin()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1TransSat2Charge()) != null) {
             childrens.add(aux);
         }
+        aux = null;
         if ((aux = sat1TransSat2Transmit()) != null) {
             childrens.add(aux);
         }
-
+        
+        aux = null;
         return childrens;
     }
 
@@ -809,11 +833,11 @@ public class State {
                 && (chld.getSAT1().getBattery() >= chld.getSAT1().getObservationCost())) {
             // No compartida
             if (area[0][chld.getJ()] != null) {
-                chld.getSAT2().pushObsevation(area[0][chld.getJ()]);
+                chld.getSAT1().pushObsevation(area[0][chld.getJ()]);
                 chld.removeObservtioninArea(0, chld.getJ());
 
             } else {
-                chld.getSAT2().pushObsevation(area[1][chld.getJ()]);
+                chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
                 chld.removeObservtioninArea(1, chld.getJ());
             }
 
@@ -911,5 +935,15 @@ public class State {
                 + this.SAT2.getObservations() + "\n" + "\tWatchArea = " + this.SAT2.isWatchArea() + "\n"
                 + areaToString();
     }
-
+    
+    private String[][] area2(State a){
+    	String aa[][] = new String [a.getArea().length][a.getArea()[0].length];
+    	for(int i =0; i<aa.length; i++) {
+    		for(int j = 0; j<aa[i].length; j++) {
+    			aa[i][j] = a.getArea()[i][j];
+    		}
+    	}
+    	
+    	return aa;
+    }
 }
