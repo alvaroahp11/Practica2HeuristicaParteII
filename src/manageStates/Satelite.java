@@ -28,6 +28,17 @@ public class Satelite {
 		this.maxBattery = battery;	
 		
 	}
+	
+    public Satelite(Satelite copy) {
+		this.battery = copy.getBattery();
+		this.watchArea = copy.isWatchArea();
+		this.observations = (ArrayList<String>) copy.getObservations().clone();
+		this.setObservationCost(copy.getObservationCost());
+		this.setTransmitionCost(copy.getTransmitionCost());
+		this.spinCost = copy.getSpinCost();
+		this.chargeUnit = copy.getChargeUnit();
+		this.maxBattery = copy.getMaxBattery();	
+	}
 
 	
 	

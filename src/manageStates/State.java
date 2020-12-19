@@ -39,9 +39,9 @@ public class State {
     }
 
     public State(State copy) {
-        this.SAT1 = copy.getSAT1();
-        this.SAT2 = copy.getSAT2();
-        this.area = copy.getArea();
+        this.SAT1 = new Satelite(copy.getSAT1());
+        this.SAT2 = new Satelite(copy.getSAT2());
+        this.area = copy.getArea().clone();
         this.j = copy.getJ();
         this.parent = copy.getParent();
         this.costValue = copy.getCostValue();
