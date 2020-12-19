@@ -16,9 +16,9 @@ public class State {
     private String parentAction;
     private int functionValue;
 
-    //por ahora sin heuristica es igual al cost
+    // por ahora sin heuristica es igual al cost
     public int getFunctionValue() {
-        this.functionValue = this.getCostValue(); // + getheuristicCost
+        this.functionValue = this.getCostValue(); // + getheuristicValue
         return functionValue;
     }
 
@@ -28,9 +28,26 @@ public class State {
         this.SAT2 = SAT2;
         this.area = area;
         this.j = 0;
-        // Que hace
-        // this.setObsevedNum(0);
+        this.parent = null;
+        this.costValue = 0;
+
+        // pilas AA
+        // pilas AA
+        this.heuristicValue = 0;// no es cero ver cuando implementemos get heuristic
+        this.functionValue = 0;
         this.parentAction = "";
+    }
+
+    public State(State copy) {
+        this.SAT1 = copy.getSAT1();
+        this.SAT2 = copy.getSAT2();
+        this.area = copy.getArea();
+        this.j = copy.getJ();
+        this.parent = copy.getParent();
+        this.costValue = copy.getCostValue();
+        this.heuristicValue = copy.getHeuristicValue();
+        this.functionValue = copy.getFunctionValue();
+        this.parentAction = copy.getParentAction();
     }
 
     public ArrayList<State> getChildrens() {
@@ -54,7 +71,6 @@ public class State {
             childrens.add(aux);
         }
 
-
         if ((aux = sat1SpinSat2Nothing()) != null) {
             childrens.add(aux);
         }
@@ -70,7 +86,6 @@ public class State {
         if ((aux = sat1SpinSat2Transmit()) != null) {
             childrens.add(aux);
         }
-
 
         if ((aux = sat1ObserveSat2Nothing()) != null) {
             childrens.add(aux);
@@ -88,7 +103,6 @@ public class State {
             childrens.add(aux);
         }
 
-
         if ((aux = sat1ChargeSat2Nothing()) != null) {
             childrens.add(aux);
         }
@@ -104,7 +118,6 @@ public class State {
         if ((aux = sat1ChargeSat2Transmit()) != null) {
             childrens.add(aux);
         }
-
 
         if ((aux = sat1TransSat2Nothing()) != null) {
             childrens.add(aux);
@@ -126,7 +139,7 @@ public class State {
     }
 
     private State sat1NothingSat2Nothing() {
-        State chld = this;
+        State chld = new State(this);
         chld.setParent(this);
         chld.setCostValue(this.getCostValue() + 1);
         if (!(this.getJ() == 11))
@@ -141,13 +154,13 @@ public class State {
     }
 
     private State sat1NothingSat2Observe() {
-        State chld = this;
+        State chld = new State(this);
 
         return sat2Observe(chld, "sat1NothingSat2Observe");
     }
 
     private State sat1NothingSat2Spin() {
-        State chld = this;
+        State chld = new State(this);
 
         if (chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
             chld.getSAT2().changeWatchArea();
@@ -165,7 +178,7 @@ public class State {
     }
 
     private State sat1NothingSat2Charge() {
-        State chld = this;
+        State chld = new State(this);
 
         if (!(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
             chld.getSAT2().chargeBattery();
@@ -183,7 +196,7 @@ public class State {
     }
 
     private State sat1NothingSat2Transmit() {
-        State chld = this;
+        State chld = new State(this);
 
         if (chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
                 && !(chld.getSAT2().getObservations().isEmpty())) {
@@ -203,7 +216,7 @@ public class State {
     }
 
     private State sat1SpinSat2Nothing() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()) {
             chld.getSAT1().changeWatchArea();
             chld.setParent(this);
@@ -221,7 +234,7 @@ public class State {
     }
 
     private State sat1SpinSat2Observe() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()) {
             // Cambiamos primero sat1Spin
             chld.getSAT1().changeWatchArea();
@@ -232,7 +245,7 @@ public class State {
     }
 
     private State sat1SpinSat2Spin() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
             chld.getSAT1().changeWatchArea();
@@ -251,7 +264,7 @@ public class State {
     }
 
     private State sat1SpinSat2Charge() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()
                 && !(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
             chld.getSAT1().changeWatchArea();
@@ -270,7 +283,7 @@ public class State {
     }
 
     private State sat1SpinSat2Transmit() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
                 && !(chld.getSAT2().getObservations().isEmpty())) {
@@ -291,13 +304,13 @@ public class State {
     }
 
     private State sat1ObserveSat2Nothing() {
-        State chld = this;
+        State chld = new State(this);
         return sat1Observe(chld, "sat1ObserveSat2Nothing");
     }
 
     // CHUCHA MADRE WEY ESTE NO ESTA FACIL CABRON jajajajajajaja
     private State sat1ObserveSat2Observe() {
-        State chld = this;
+        State chld = new State(this);
 
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getObservationCost()
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getObservationCost()) {
@@ -453,8 +466,7 @@ public class State {
     }
 
     private State sat1ObserveSat2Spin() {
-        State chld = this;
-
+        State chld = new State(this);
         if (chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
             // Cambiamos primero sat2Spin
             chld.getSAT2().changeWatchArea();
@@ -465,7 +477,7 @@ public class State {
     }
 
     private State sat1ObserveSat2Charge() {
-        State chld = this;
+        State chld = new State(this);
 
         if (!(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
             // Cambiamos primero sat2Charge
@@ -477,7 +489,7 @@ public class State {
     }
 
     private State sat1ObserveSat2Transmit() {
-        State chld = this;
+        State chld = new State(this);
 
         if (chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
                 && !(chld.getSAT2().getObservations().isEmpty())) {
@@ -489,7 +501,7 @@ public class State {
     }
 
     private State sat1ChargeSat2Nothing() {
-        State chld = this;
+        State chld = new State(this);
         if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())) {
             chld.getSAT1().chargeBattery();
             chld.setParent(this);
@@ -506,7 +518,7 @@ public class State {
     }
 
     private State sat1ChargeSat2Observe() {
-        State chld = this;
+        State chld = new State(this);
         if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())) {
             chld.getSAT1().chargeBattery();
 
@@ -517,7 +529,7 @@ public class State {
     }
 
     private State sat1ChargeSat2Spin() {
-        State chld = this;
+        State chld = new State(this);
         if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
             chld.getSAT1().chargeBattery();
@@ -536,7 +548,7 @@ public class State {
     }
 
     private State sat1ChargeSat2Charge() {
-        State chld = this;
+        State chld = new State(this);
         if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())
                 && !(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
             chld.getSAT1().chargeBattery();
@@ -556,7 +568,7 @@ public class State {
     }
 
     private State sat1ChargeSat2Transmit() {
-        State chld = this;
+        State chld = new State(this);
         if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
                 && !(chld.getSAT2().getObservations().isEmpty())) {
@@ -576,7 +588,7 @@ public class State {
     }
 
     private State sat1TransSat2Nothing() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
                 && !(chld.getSAT1().getObservations().isEmpty())) {
             chld.getSAT1().transmit();
@@ -593,7 +605,7 @@ public class State {
     }
 
     private State sat1TransSat2Observe() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
                 && !(chld.getSAT1().getObservations().isEmpty())) {
             chld.getSAT1().transmit();
@@ -606,7 +618,7 @@ public class State {
 
     private State sat1TransSat2Spin() {
 
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
                 && !(chld.getSAT1().getObservations().isEmpty())
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
@@ -626,7 +638,7 @@ public class State {
     }
 
     private State sat1TransSat2Charge() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
                 && !(chld.getSAT1().getObservations().isEmpty())
                 && !(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
@@ -646,7 +658,7 @@ public class State {
     }
 
     private State sat1TransSat2Transmit() {
-        State chld = this;
+        State chld = new State(this);
         if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
                 && !(chld.getSAT1().getObservations().isEmpty())
                 && chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
@@ -666,19 +678,17 @@ public class State {
         return null;
     }
 
-    
-    
     public boolean isFinal() {
-        if(isEmptyArea() && this.getSAT1().getObservations().isEmpty() && this.getSAT2().getObservations().isEmpty()){
-			return true;
-		}
+        if (isEmptyArea() && this.getSAT1().getObservations().isEmpty() && this.getSAT2().getObservations().isEmpty()) {
+            return true;
+        }
         return false;
     }
-    
+
     private boolean isEmptyArea() {
-        for (int i = 0;  i < area.length; i++) {
+        for (int i = 0; i < area.length; i++) {
             for (int j = 0; j < area[i].length; j++) {
-                if(area[i][j] != null) {
+                if (area[i][j] != null) {
                     return false;
                 }
             }
@@ -878,14 +888,14 @@ public class State {
         // Si SAT2 no puede observar
         return null;
     }
-    
+
     private String areaToString() {
         String result = "";
-        for(int i= 0; i< this.getArea().length; i++){
-            for(int j = 0 ; j<this.getArea()[i].length; j++){
+        for (int i = 0; i < this.getArea().length; i++) {
+            for (int j = 0; j < this.getArea()[i].length; j++) {
                 if (this.getArea()[i][j] != null)
                     result += this.getArea()[i][j] + "\t";
-                else{
+                else {
                     result += "00\t";
                 }
             }
@@ -893,17 +903,13 @@ public class State {
         }
         return result;
     }
-    
-    public String toString() {
-     return  "Parent Action = " + this.parentAction + "\n" +
-             "Sat1: Battery = " + this.SAT1.getBattery() + "\n" +
-               "\tObservations = " + this.SAT1.getObservations() + "\n" +
-               "\tWatchArea = " + this.SAT1.isWatchArea() + "\n" +
-               "Sat2: Battery = " + this.SAT2.getBattery() + "\n" +
-               "\tObservations = " + this.SAT2.getObservations() + "\n" +
-               "\tWatchArea = " + this.SAT2.isWatchArea() + "\n" +
-               areaToString();
-    }
 
+    public String toString() {
+        return "Parent Action = " + this.parentAction + "\n" + "Sat1: Battery = " + this.SAT1.getBattery() + "\n"
+                + "\tObservations = " + this.SAT1.getObservations() + "\n" + "\tWatchArea = " + this.SAT1.isWatchArea()
+                + "\n" + "Sat2: Battery = " + this.SAT2.getBattery() + "\n" + "\tObservations = "
+                + this.SAT2.getObservations() + "\n" + "\tWatchArea = " + this.SAT2.isWatchArea() + "\n"
+                + areaToString();
+    }
 
 }
