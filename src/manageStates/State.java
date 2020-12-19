@@ -211,23 +211,34 @@ public class State {
 
 			if (chld.getSAT1().isWatchArea() && chld.getSAT2().isWatchArea()) {
 				// true true
-				if(area[1][chld.getJ()]!=null && area[2][chld.getJ()]!= null) {
-					//Da igual quien agarre una u otra observacion?????????? Creo que si
-					//Da igual quien agarre una u otra observacion??????????
-					//Da igual quien agarre una u otra observacion??????????
-					//Da igual quien agarre una u otra observacion??????????
-					//Da igual quien agarre una u otra observacion??????????
+				if (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null) {
+					// Da igual quien agarre una u otra observacion?????????? Creo que si
+					// Da igual quien agarre una u otra observacion??????????
+					// Da igual quien agarre una u otra observacion??????????
+					// Da igual quien agarre una u otra observacion??????????
+					// Da igual quien agarre una u otra observacion??????????
 					chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
 					chld.removeObservtioninArea(1, chld.getJ());
 					chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
 					chld.removeObservtioninArea(2, chld.getJ());
+				} else {
+					return null;
+
 				}
+				chld.setParent(this);
+				chld.setCostValue(this.getCostValue() + 1);
+				if (!(this.getJ() == 11))
+					chld.setJ(this.getJ() + 1);
+				else
+					chld.setJ(0);
+				chld.setParentAction("sat1SpinSat2Transmit");
+				return chld;
 
 			} else if (chld.getSAT1().isWatchArea() && !chld.getSAT2().isWatchArea()) {
 				// true false
 				if ((area[1][chld.getJ()] != null || area[2][chld.getJ()] != null)
 						&& (area[2][chld.getJ()] != null || area[3][chld.getJ()] != null)) {
-					
+
 					if (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null) {
 						chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
 						chld.removeObservtioninArea(1, chld.getJ());
@@ -235,14 +246,14 @@ public class State {
 						chld.removeObservtioninArea(2, chld.getJ());
 
 					} else if (area[1][chld.getJ()] != null && area[3][chld.getJ()] != null) {
-						
+
 						chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
 						chld.removeObservtioninArea(1, chld.getJ());
 						chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
 						chld.removeObservtioninArea(3, chld.getJ());
 
 					} else if (area[2][chld.getJ()] != null && area[3][chld.getJ()] != null) {
-						
+
 						chld.getSAT1().pushObsevation(area[2][chld.getJ()]);
 						chld.removeObservtioninArea(2, chld.getJ());
 						chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
@@ -251,6 +262,14 @@ public class State {
 					} else {
 						return null;
 					}
+					chld.setParent(this);
+					chld.setCostValue(this.getCostValue() + 1);
+					if (!(this.getJ() == 11))
+						chld.setJ(this.getJ() + 1);
+					else
+						chld.setJ(0);
+					chld.setParentAction("sat1SpinSat2Transmit");
+					return chld;
 				}
 
 			} else if (!chld.getSAT1().isWatchArea() && chld.getSAT2().isWatchArea()) {
