@@ -18,7 +18,7 @@ public class State {
 
     // por ahora sin heuristica es igual al cost
     public int getFunctionValue() {
-        this.functionValue = this.getCostValue(); // + getheuristicValue
+        this.functionValue = this.getCostValue() + this.getHeuristicValue();
         return functionValue;
     }
 
@@ -769,6 +769,7 @@ public class State {
     }
 
     public int getHeuristicValue() {
+        this.heuristicValue = (observationLeft()*2) + this.SAT1.getObservations().size() + this.SAT2.getObservations().size();
         return heuristicValue;
     }
 
@@ -913,6 +914,18 @@ public class State {
         return null;
     }
 
+    private int observationLeft() {
+        int count = 0;
+        for (int i = 0; i < area.length; i++) {
+            for (int j = 0; j < area[i].length; j++) {
+                if (area[i][j] != null) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     private String areaToString() {
         String result = "";
         for (int i = 0; i < this.getArea().length; i++) {
@@ -929,11 +942,11 @@ public class State {
     }
 
     public String toString() {
-        return "Parent Action = " + this.parentAction + "\n" + "Sat1: Battery = " + this.SAT1.getBattery() + "\n"
-                + "\tObservations = " + this.SAT1.getObservations() + "\n" + "\tWatchArea = " + this.SAT1.isWatchArea()
-                + "\n" + "Sat2: Battery = " + this.SAT2.getBattery() + "\n" + "\tObservations = "
-                + this.SAT2.getObservations() + "\n" + "\tWatchArea = " + this.SAT2.isWatchArea() + "\n"
-                + areaToString();
+        return "f(n) = " + this.getFunctionValue() + "\n" + "Parent Action = " + this.parentAction + "\n"
+                + "Sat1: Battery = " + this.SAT1.getBattery() + "\n" + "\tObservations = " + this.SAT1.getObservations()
+                + "\n" + "\tWatchArea = " + this.SAT1.isWatchArea() + "\n" + "Sat2: Battery = " + this.SAT2.getBattery()
+                + "\n" + "\tObservations = " + this.SAT2.getObservations() + "\n" + "\tWatchArea = "
+                + this.SAT2.isWatchArea() + "\n" + areaToString();
     }
     
     private String[][] area2(State a){
