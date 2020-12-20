@@ -5,6 +5,7 @@ import java.util.*;
 import manageStates.*;
 
 public class AStarAlgorithm {
+    
 
     public static State aStartInit(State state) {
         PriorityQueue<State> openList = new PriorityQueue<State>(new Comparator<State>() {

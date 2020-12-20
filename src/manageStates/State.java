@@ -812,19 +812,6 @@ public class State {
         this.heuristicValue = heuristicValue;
     }
 
-//
-//    public int getObsevedNum() {
-//        return obsevedNum;
-//    }
-//
-//
-//
-//
-//
-//    public void setObsevedNum(int obsevedNum) {
-//        this.obsevedNum = obsevedNum;
-//    }
-
     // Remueve de la matriz de strings
     private void removeObservtioninArea(int i, int j) {
         this.area[i][j] = null;
@@ -1026,6 +1013,17 @@ public class State {
         // should be "%064x"
         String hex = String.format("%32x", new BigInteger(1, digest));
         return hex;
+    }
+    
+    public ArrayList<State> getPath() {
+        State finalState = this;
+        ArrayList<State> camino = new ArrayList<State>();
+        while(finalState.getParent() != null) {
+            camino.add(finalState);
+            finalState = finalState.getParent();
+        }
+        camino.add(finalState);
+        return camino;
     }
 
 }

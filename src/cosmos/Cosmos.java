@@ -2,6 +2,7 @@ package cosmos;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -55,7 +56,6 @@ public class Cosmos {
 	}
 
 	public static State firstState(String data[]) {
-		State intialState = null;
 		Satelite SAT1 = null;
 		Satelite SAT2 = null;
 		String area[][] = new String[4][12];
@@ -94,11 +94,37 @@ public class Cosmos {
         }
 		SAT2 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 
-		return intialState = new State(SAT1, SAT2, area);
+		return new State(SAT1, SAT2, area);
 	}
+	
+	public static String jobDone (State a) {
+        String job = a.getParentAction();
+        job = job.substring(4);
+        job = job.replace("Sat2", ";");
+        
+        return job;
+    }
+	
+
+    
+    public static void writeOutput(ArrayList<State> camino) throws IOException {
+        camino.remove(camino.size()-1);
+        int i = 1;
+        String [] aux = null;
+        File myObj = new File("./output/problema.prob.output");
+        FileWriter myWriter = new FileWriter(myObj);
+        while(!camino.isEmpty()) {
+            String Sat1 = null;
+            Sat1 = jobDone(camino.remove(camino.size()-1));
+            aux = Sat1.split(";");
+            myWriter.write(i+". SAT1: "+aux[0]+", SAT2: "+aux[1]+"\n");
+            i++;
+        }
+        myWriter.close();
+    }
 
 	public static void main(String args[]) throws CosmosException, FileNotFoundException {
-
+	    long start = System.currentTimeMillis();
 		// Check the arguments
 		checkArguments(args);
 
@@ -130,19 +156,18 @@ public class Cosmos {
 		
 
 		State finalState = AStarAlgorithm.aStartInit(initialState);
-		ArrayList<State> camino = new ArrayList<State>();
 		
-		while(finalState.getParent() != null) {
-		    camino.add(finalState);
-		    finalState = finalState.getParent();
-		}
-		camino.add(finalState);
-		
-		for (State state : camino) {
-            System.out.println(state);
+		//States to complete the job
+        ArrayList<State> camino = finalState.getPath();
+        //Create output
+        try {
+            writeOutput(camino);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-		
-		
+        
+        long finish = System.currentTimeMillis();
+        System.out.println("Total de tiempo "+(finish-start));
 		
 
 	}
