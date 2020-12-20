@@ -166,7 +166,7 @@ public class State {
             chld.setJ(this.getJ() + 1);
         else {
             chld.setJ(0);
-            chld.setCostValue(chld.getCostValue() + 12);
+            //chld.setCostValue(chld.getCostValue() + 12);
         }
 
         chld.setParentAction("sat1NothingSat2Nothing");
@@ -192,7 +192,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1NothingSat2Spin");
 
@@ -212,7 +212,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1NothingSat2Charge");
             return chld;
@@ -233,7 +233,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1NothingSat2Transmit");
 
@@ -253,7 +253,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1SpinSat2Nothing");
             return chld;
@@ -286,7 +286,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1SpinSat2Spin");
             return chld;
@@ -307,7 +307,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1SpinSat2Charge");
             return chld;
@@ -329,7 +329,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1SpinSat2Transmit");
             return chld;
@@ -367,7 +367,7 @@ public class State {
                     chld.setJ(this.getJ() + 1);
                 else {
                     chld.setJ(0);
-                    chld.setCostValue(chld.getCostValue() + 12);
+                    //chld.setCostValue(chld.getCostValue() + 12);
                 }
                 chld.setParentAction("sat1ObserveSat2Observe");
                 return chld;
@@ -406,7 +406,7 @@ public class State {
                         chld.setJ(this.getJ() + 1);
                     else {
                         chld.setJ(0);
-                        chld.setCostValue(chld.getCostValue() + 12);
+                        //chld.setCostValue(chld.getCostValue() + 12);
                     }
                     chld.setParentAction("sat1ObserveSat2Observe");
                     return chld;
@@ -446,7 +446,7 @@ public class State {
                         chld.setJ(this.getJ() + 1);
                     else {
                         chld.setJ(0);
-                        chld.setCostValue(chld.getCostValue() + 12);
+                        //chld.setCostValue(chld.getCostValue() + 12);
                     }
                     chld.setParentAction("sat1ObserveSat2Observe");
                     return chld;
@@ -492,7 +492,7 @@ public class State {
                         chld.setJ(this.getJ() + 1);
                     else {
                         chld.setJ(0);
-                        chld.setCostValue(chld.getCostValue() + 12);
+                        //chld.setCostValue(chld.getCostValue() + 12);
                     }
                     chld.setParentAction("sat1ObserveSat2Observe");
                     return chld;
@@ -548,7 +548,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1ChargeSat2Nothing");
             return chld;
@@ -580,7 +580,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1ChargeSat2Spin");
 
@@ -601,7 +601,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1ChargeSat2Charge");
             return chld;
@@ -624,7 +624,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1ChargeSat2Transmit");
             return chld;
@@ -644,7 +644,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1TransSat2Nothing");
             return chld;
@@ -678,7 +678,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1TransSat2Spin");
             return chld;
@@ -700,7 +700,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1TransSat2Charge");
             return chld;
@@ -723,7 +723,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction("sat1TransSat2Transmit");
             return chld;
@@ -799,7 +799,7 @@ public class State {
     }
 
     public int getHeuristicValue() {
-        this.heuristicValue = (observationLeft() * 2) + this.SAT1.getObservations().size()
+        this.heuristicValue = observationLeft() + this.SAT1.getObservations().size()
                 + this.SAT2.getObservations().size();
         return heuristicValue;
     }
@@ -855,7 +855,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction(parentAction);
 
@@ -882,7 +882,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
 
             chld.setParentAction(parentAction);
@@ -913,7 +913,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
             chld.setParentAction(parentAction);
 
@@ -944,7 +944,7 @@ public class State {
                 chld.setJ(this.getJ() + 1);
             else {
                 chld.setJ(0);
-                chld.setCostValue(chld.getCostValue() + 12);
+                //chld.setCostValue(chld.getCostValue() + 12);
             }
 
             chld.setParentAction(parentAction);

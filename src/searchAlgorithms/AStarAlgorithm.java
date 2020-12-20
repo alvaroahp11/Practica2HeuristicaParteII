@@ -32,6 +32,7 @@ public class AStarAlgorithm {
         while (!(openList.isEmpty()) && success != true) {
             aux = openList.poll();
             if (!(closeList.contains(aux))) {
+                System.out.println(aux);
                 if (aux.isFinal()) {
                     success = true;
                 } else {
