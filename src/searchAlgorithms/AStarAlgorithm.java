@@ -29,13 +29,9 @@ public class AStarAlgorithm {
         boolean success = false;
 
         State aux = null;
-        int i = 1;
         while (!(openList.isEmpty()) && success != true) {
-            System.out.println(i);
-            i++;
             aux = openList.poll();
             if (!(closeList.contains(aux))) {
-                System.out.println(aux);
                 if (aux.isFinal()) {
                     success = true;
                 } else {

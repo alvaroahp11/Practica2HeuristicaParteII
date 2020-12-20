@@ -55,110 +55,106 @@ public class State {
         ArrayList<State> childrens = new ArrayList<State>();
         State aux = null;
 
+        if ((aux = sat1ObserveSat2Nothing()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ObserveSat2Observe()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ObserveSat2Spin()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ObserveSat2Charge()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ObserveSat2Transmit()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ChargeSat2Nothing()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ChargeSat2Observe()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ChargeSat2Spin()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ChargeSat2Charge()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1ChargeSat2Transmit()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1TransSat2Nothing()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1TransSat2Observe()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1TransSat2Spin()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1TransSat2Charge()) != null) {
+            childrens.add(aux);
+        }
+
+        if ((aux = sat1TransSat2Transmit()) != null) {
+            childrens.add(aux);
+        }
+
         if ((aux = sat1NothingSat2Nothing()) != null) {
             childrens.add(aux);
         }
-        
-        aux = null;
+
         if ((aux = sat1NothingSat2Observe()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1NothingSat2Spin()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1NothingSat2Charge()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1NothingSat2Transmit()) != null) {
             childrens.add(aux);
         }
-        aux = null;
 
         if ((aux = sat1SpinSat2Nothing()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1SpinSat2Observe()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1SpinSat2Spin()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1SpinSat2Charge()) != null) {
             childrens.add(aux);
         }
-        aux = null;
+
         if ((aux = sat1SpinSat2Transmit()) != null) {
             childrens.add(aux);
         }
-        aux = null;
 
-        if ((aux = sat1ObserveSat2Nothing()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ObserveSat2Observe()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ObserveSat2Spin()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ObserveSat2Charge()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ObserveSat2Transmit()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ChargeSat2Nothing()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ChargeSat2Observe()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ChargeSat2Spin()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ChargeSat2Charge()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1ChargeSat2Transmit()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1TransSat2Nothing()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1TransSat2Observe()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1TransSat2Spin()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1TransSat2Charge()) != null) {
-            childrens.add(aux);
-        }
-        aux = null;
-        if ((aux = sat1TransSat2Transmit()) != null) {
-            childrens.add(aux);
-        }
-        
-        aux = null;
         return childrens;
     }
 
@@ -168,8 +164,10 @@ public class State {
         chld.setCostValue(this.getCostValue() + 1);
         if (!(this.getJ() == 11))
             chld.setJ(this.getJ() + 1);
-        else
+        else {
             chld.setJ(0);
+            chld.setCostValue(chld.getCostValue() + 12);
+        }
 
         chld.setParentAction("sat1NothingSat2Nothing");
 
@@ -186,14 +184,16 @@ public class State {
     private State sat1NothingSat2Spin() {
         State chld = new State(this);
 
-        if (chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
+        if (this.getSAT2().getBattery() >= this.getSAT2().getSpinCost()) {
             chld.getSAT2().changeWatchArea();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1NothingSat2Spin");
 
             return chld;
@@ -204,14 +204,16 @@ public class State {
     private State sat1NothingSat2Charge() {
         State chld = new State(this);
 
-        if (!(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
+        if (!(this.getSAT2().getBattery() == this.getSAT2().getMaxBattery())) {
             chld.getSAT2().chargeBattery();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1NothingSat2Charge");
             return chld;
         }
@@ -222,15 +224,17 @@ public class State {
     private State sat1NothingSat2Transmit() {
         State chld = new State(this);
 
-        if (chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
-                && !(chld.getSAT2().getObservations().isEmpty())) {
+        if (this.getSAT2().getBattery() >= this.getSAT2().getTransmitionCost()
+                && !(this.getSAT2().getObservations().isEmpty())) {
             chld.getSAT2().transmit();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1NothingSat2Transmit");
 
             return chld;
@@ -241,14 +245,16 @@ public class State {
 
     private State sat1SpinSat2Nothing() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getSpinCost()) {
             chld.getSAT1().changeWatchArea();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1SpinSat2Nothing");
             return chld;
 
@@ -259,7 +265,7 @@ public class State {
 
     private State sat1SpinSat2Observe() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getSpinCost()) {
             // Cambiamos primero sat1Spin
             chld.getSAT1().changeWatchArea();
 
@@ -270,16 +276,18 @@ public class State {
 
     private State sat1SpinSat2Spin() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getSpinCost()
+                && this.getSAT2().getBattery() >= this.getSAT2().getSpinCost()) {
             chld.getSAT1().changeWatchArea();
             chld.getSAT2().changeWatchArea();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1SpinSat2Spin");
             return chld;
 
@@ -289,16 +297,18 @@ public class State {
 
     private State sat1SpinSat2Charge() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()
-                && !(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getSpinCost()
+                && !(this.getSAT2().getBattery() == this.getSAT2().getMaxBattery())) {
             chld.getSAT1().changeWatchArea();
             chld.getSAT2().chargeBattery();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1SpinSat2Charge");
             return chld;
         }
@@ -308,17 +318,19 @@ public class State {
 
     private State sat1SpinSat2Transmit() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getSpinCost()
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
-                && !(chld.getSAT2().getObservations().isEmpty())) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getSpinCost()
+                && this.getSAT2().getBattery() >= this.getSAT2().getTransmitionCost()
+                && !(this.getSAT2().getObservations().isEmpty())) {
             chld.getSAT1().changeWatchArea();
             chld.getSAT2().transmit();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1SpinSat2Transmit");
             return chld;
 
@@ -332,25 +344,19 @@ public class State {
         return sat1Observe(chld, "sat1ObserveSat2Nothing");
     }
 
-    // CHUCHA MADRE WEY ESTE NO ESTA FACIL CABRON jajajajajajaja
     private State sat1ObserveSat2Observe() {
         State chld = new State(this);
 
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getObservationCost()
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getObservationCost()) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getObservationCost()
+                && this.getSAT2().getBattery() >= this.getSAT2().getObservationCost()) {
 
-            if (chld.getSAT1().isWatchArea() && chld.getSAT2().isWatchArea()) {
+            if (this.getSAT1().isWatchArea() && this.getSAT2().isWatchArea()) {
                 // true true
-                if (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null) {
-                    // Da igual quien agarre una u otra observacion?????????? Creo que si
-                    // Da igual quien agarre una u otra observacion??????????
-                    // Da igual quien agarre una u otra observacion??????????
-                    // Da igual quien agarre una u otra observacion??????????
-                    // Da igual quien agarre una u otra observacion??????????
-                    chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                    chld.removeObservtioninArea(1, chld.getJ());
-                    chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                    chld.removeObservtioninArea(2, chld.getJ());
+                if (this.area[1][this.getJ()] != null && this.area[2][this.getJ()] != null) {
+                    chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                    chld.removeObservtioninArea(1, this.getJ());
+                    chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                    chld.removeObservtioninArea(2, this.getJ());
                 } else {
                     return null;
 
@@ -359,35 +365,37 @@ public class State {
                 chld.setCostValue(this.getCostValue() + 1);
                 if (!(this.getJ() == 11))
                     chld.setJ(this.getJ() + 1);
-                else
+                else {
                     chld.setJ(0);
+                    chld.setCostValue(chld.getCostValue() + 12);
+                }
                 chld.setParentAction("sat1ObserveSat2Observe");
                 return chld;
 
-            } else if (chld.getSAT1().isWatchArea() && !chld.getSAT2().isWatchArea()) {
+            } else if (this.getSAT1().isWatchArea() && !this.getSAT2().isWatchArea()) {
                 // true false
-                if ((area[1][chld.getJ()] != null || area[2][chld.getJ()] != null)
-                        && (area[2][chld.getJ()] != null || area[3][chld.getJ()] != null)) {
+                if ((this.area[1][this.getJ()] != null || this.area[2][this.getJ()] != null)
+                        && (this.area[2][this.getJ()] != null || this.area[3][this.getJ()] != null)) {
 
-                    if (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null) {
-                        chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                        chld.removeObservtioninArea(1, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                        chld.removeObservtioninArea(2, chld.getJ());
+                    if (this.area[1][this.getJ()] != null && this.area[2][this.getJ()] != null) {
+                        chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                        chld.removeObservtioninArea(1, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                        chld.removeObservtioninArea(2, this.getJ());
 
-                    } else if (area[1][chld.getJ()] != null && area[3][chld.getJ()] != null) {
+                    } else if (this.area[1][this.getJ()] != null && this.area[3][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                        chld.removeObservtioninArea(1, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
-                        chld.removeObservtioninArea(3, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                        chld.removeObservtioninArea(1, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[3][this.getJ()]);
+                        chld.removeObservtioninArea(3, this.getJ());
 
-                    } else if (area[2][chld.getJ()] != null && area[3][chld.getJ()] != null) {
+                    } else if (this.area[2][this.getJ()] != null && this.area[3][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[2][chld.getJ()]);
-                        chld.removeObservtioninArea(2, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
-                        chld.removeObservtioninArea(3, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[2][this.getJ()]);
+                        chld.removeObservtioninArea(2, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[3][this.getJ()]);
+                        chld.removeObservtioninArea(3, this.getJ());
 
                     } else {
                         return null;
@@ -396,36 +404,38 @@ public class State {
                     chld.setCostValue(this.getCostValue() + 1);
                     if (!(this.getJ() == 11))
                         chld.setJ(this.getJ() + 1);
-                    else
+                    else {
                         chld.setJ(0);
+                        chld.setCostValue(chld.getCostValue() + 12);
+                    }
                     chld.setParentAction("sat1ObserveSat2Observe");
                     return chld;
                 }
 
-            } else if (!chld.getSAT1().isWatchArea() && chld.getSAT2().isWatchArea()) {
+            } else if (!this.getSAT1().isWatchArea() && this.getSAT2().isWatchArea()) {
                 // False true
-                if ((area[0][chld.getJ()] != null || area[1][chld.getJ()] != null)
-                        && (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null)) {
+                if ((this.area[0][this.getJ()] != null || this.area[1][this.getJ()] != null)
+                        && (this.area[1][this.getJ()] != null || this.area[2][this.getJ()] != null)) {
 
-                    if (area[0][chld.getJ()] != null && area[1][chld.getJ()] != null) {
+                    if (this.area[0][this.getJ()] != null && this.area[1][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[0][chld.getJ()]);
-                        chld.removeObservtioninArea(0, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[1][chld.getJ()]);
-                        chld.removeObservtioninArea(1, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[0][this.getJ()]);
+                        chld.removeObservtioninArea(0, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[1][this.getJ()]);
+                        chld.removeObservtioninArea(1, this.getJ());
 
-                    } else if (area[0][chld.getJ()] != null && area[2][chld.getJ()] != null) {
+                    } else if (this.area[0][this.getJ()] != null && this.area[2][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[0][chld.getJ()]);
-                        chld.removeObservtioninArea(0, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                        chld.removeObservtioninArea(2, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[0][this.getJ()]);
+                        chld.removeObservtioninArea(0, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                        chld.removeObservtioninArea(2, this.getJ());
 
-                    } else if (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null) {
-                        chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                        chld.removeObservtioninArea(1, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                        chld.removeObservtioninArea(2, chld.getJ());
+                    } else if (this.area[1][this.getJ()] != null && this.area[2][this.getJ()] != null) {
+                        chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                        chld.removeObservtioninArea(1, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                        chld.removeObservtioninArea(2, this.getJ());
 
                     } else {
                         return null;
@@ -434,43 +444,45 @@ public class State {
                     chld.setCostValue(this.getCostValue() + 1);
                     if (!(this.getJ() == 11))
                         chld.setJ(this.getJ() + 1);
-                    else
+                    else {
                         chld.setJ(0);
+                        chld.setCostValue(chld.getCostValue() + 12);
+                    }
                     chld.setParentAction("sat1ObserveSat2Observe");
                     return chld;
                 }
 
             } else {
-                // Se puede borrar este if?
-                if ((area[0][chld.getJ()] != null || area[1][chld.getJ()] != null)
-                        && (area[2][chld.getJ()] != null || area[3][chld.getJ()] != null)) {
+                // false false
+                if ((this.area[0][this.getJ()] != null || this.area[1][this.getJ()] != null)
+                        && (this.area[2][this.getJ()] != null || this.area[3][this.getJ()] != null)) {
 
-                    if (area[0][chld.getJ()] != null && area[2][chld.getJ()] != null) {
+                    if (this.area[0][this.getJ()] != null && this.area[2][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[0][chld.getJ()]);
-                        chld.removeObservtioninArea(0, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                        chld.removeObservtioninArea(2, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[0][this.getJ()]);
+                        chld.removeObservtioninArea(0, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                        chld.removeObservtioninArea(2, this.getJ());
 
-                    } else if (area[0][chld.getJ()] != null && area[3][chld.getJ()] != null) {
+                    } else if (this.area[0][this.getJ()] != null && this.area[3][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[0][chld.getJ()]);
-                        chld.removeObservtioninArea(0, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
-                        chld.removeObservtioninArea(3, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[0][this.getJ()]);
+                        chld.removeObservtioninArea(0, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[3][this.getJ()]);
+                        chld.removeObservtioninArea(3, this.getJ());
 
-                    } else if (area[1][chld.getJ()] != null && area[2][chld.getJ()] != null) {
+                    } else if (this.area[1][this.getJ()] != null && this.area[2][this.getJ()] != null) {
 
-                        chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                        chld.removeObservtioninArea(1, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                        chld.removeObservtioninArea(2, chld.getJ());
+                        chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                        chld.removeObservtioninArea(1, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                        chld.removeObservtioninArea(2, this.getJ());
 
-                    } else {// 1 3
-                        chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                        chld.removeObservtioninArea(1, chld.getJ());
-                        chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
-                        chld.removeObservtioninArea(3, chld.getJ());
+                    } else {
+                        chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                        chld.removeObservtioninArea(1, this.getJ());
+                        chld.getSAT2().pushObsevation(this.area[3][this.getJ()]);
+                        chld.removeObservtioninArea(3, this.getJ());
 
                     }
 
@@ -478,8 +490,10 @@ public class State {
                     chld.setCostValue(this.getCostValue() + 1);
                     if (!(this.getJ() == 11))
                         chld.setJ(this.getJ() + 1);
-                    else
+                    else {
                         chld.setJ(0);
+                        chld.setCostValue(chld.getCostValue() + 12);
+                    }
                     chld.setParentAction("sat1ObserveSat2Observe");
                     return chld;
                 }
@@ -491,7 +505,7 @@ public class State {
 
     private State sat1ObserveSat2Spin() {
         State chld = new State(this);
-        if (chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
+        if (this.getSAT2().getBattery() >= this.getSAT2().getSpinCost()) {
             // Cambiamos primero sat2Spin
             chld.getSAT2().changeWatchArea();
 
@@ -503,7 +517,7 @@ public class State {
     private State sat1ObserveSat2Charge() {
         State chld = new State(this);
 
-        if (!(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
+        if (!(this.getSAT2().getBattery() == this.getSAT2().getMaxBattery())) {
             // Cambiamos primero sat2Charge
             chld.getSAT2().chargeBattery();
 
@@ -515,8 +529,8 @@ public class State {
     private State sat1ObserveSat2Transmit() {
         State chld = new State(this);
 
-        if (chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
-                && !(chld.getSAT2().getObservations().isEmpty())) {
+        if (this.getSAT2().getBattery() >= this.getSAT2().getTransmitionCost()
+                && !(this.getSAT2().getObservations().isEmpty())) {
             chld.getSAT2().transmit();
 
             return sat1Observe(chld, "sat1ObserveSat2Transmit");
@@ -526,14 +540,16 @@ public class State {
 
     private State sat1ChargeSat2Nothing() {
         State chld = new State(this);
-        if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())) {
+        if (!(this.getSAT1().getBattery() == this.getSAT1().getMaxBattery())) {
             chld.getSAT1().chargeBattery();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1ChargeSat2Nothing");
             return chld;
         }
@@ -543,7 +559,7 @@ public class State {
 
     private State sat1ChargeSat2Observe() {
         State chld = new State(this);
-        if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())) {
+        if (!(this.getSAT1().getBattery() == this.getSAT1().getMaxBattery())) {
             chld.getSAT1().chargeBattery();
 
             return sat2Observe(chld, "sat1ChargeSat2Observe");
@@ -554,16 +570,18 @@ public class State {
 
     private State sat1ChargeSat2Spin() {
         State chld = new State(this);
-        if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
+        if (!(this.getSAT1().getBattery() == this.getSAT1().getMaxBattery())
+                && this.getSAT2().getBattery() >= this.getSAT2().getSpinCost()) {
             chld.getSAT1().chargeBattery();
             chld.getSAT1().changeWatchArea();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1ChargeSat2Spin");
 
             return chld;
@@ -573,16 +591,18 @@ public class State {
 
     private State sat1ChargeSat2Charge() {
         State chld = new State(this);
-        if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())
-                && !(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
+        if (!(this.getSAT1().getBattery() == this.getSAT1().getMaxBattery())
+                && !(this.getSAT2().getBattery() == this.getSAT2().getMaxBattery())) {
             chld.getSAT1().chargeBattery();
             chld.getSAT2().chargeBattery();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1ChargeSat2Charge");
             return chld;
         }
@@ -593,17 +613,19 @@ public class State {
 
     private State sat1ChargeSat2Transmit() {
         State chld = new State(this);
-        if (!(chld.getSAT1().getBattery() == chld.getSAT1().getMaxBattery())
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
-                && !(chld.getSAT2().getObservations().isEmpty())) {
+        if (!(this.getSAT1().getBattery() == this.getSAT1().getMaxBattery())
+                && this.getSAT2().getBattery() >= this.getSAT2().getTransmitionCost()
+                && !(this.getSAT2().getObservations().isEmpty())) {
             chld.getSAT1().chargeBattery();
             chld.getSAT2().transmit();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1ChargeSat2Transmit");
             return chld;
         }
@@ -613,15 +635,17 @@ public class State {
 
     private State sat1TransSat2Nothing() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
-                && !(chld.getSAT1().getObservations().isEmpty())) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
+                && !(this.getSAT1().getObservations().isEmpty())) {
             chld.getSAT1().transmit();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1TransSat2Nothing");
             return chld;
         }
@@ -630,8 +654,8 @@ public class State {
 
     private State sat1TransSat2Observe() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
-                && !(chld.getSAT1().getObservations().isEmpty())) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
+                && !(this.getSAT1().getObservations().isEmpty())) {
             chld.getSAT1().transmit();
 
             return sat2Observe(chld, "sat1TransSat2Observe");
@@ -643,17 +667,19 @@ public class State {
     private State sat1TransSat2Spin() {
 
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
-                && !(chld.getSAT1().getObservations().isEmpty())
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getSpinCost()) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
+                && !(this.getSAT1().getObservations().isEmpty())
+                && this.getSAT2().getBattery() >= this.getSAT2().getSpinCost()) {
             chld.getSAT1().transmit();
             chld.getSAT2().changeWatchArea();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1TransSat2Spin");
             return chld;
         }
@@ -663,17 +689,19 @@ public class State {
 
     private State sat1TransSat2Charge() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
-                && !(chld.getSAT1().getObservations().isEmpty())
-                && !(chld.getSAT2().getBattery() == chld.getSAT2().getMaxBattery())) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
+                && !(this.getSAT1().getObservations().isEmpty())
+                && !(this.getSAT2().getBattery() == this.getSAT2().getMaxBattery())) {
             chld.getSAT1().transmit();
             chld.getSAT2().chargeBattery();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1TransSat2Charge");
             return chld;
         }
@@ -683,18 +711,20 @@ public class State {
 
     private State sat1TransSat2Transmit() {
         State chld = new State(this);
-        if (chld.getSAT1().getBattery() >= chld.getSAT1().getTransmitionCost()
-                && !(chld.getSAT1().getObservations().isEmpty())
-                && chld.getSAT2().getBattery() >= chld.getSAT2().getTransmitionCost()
-                && !(chld.getSAT2().getObservations().isEmpty())) {
+        if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
+                && !(this.getSAT1().getObservations().isEmpty())
+                && this.getSAT2().getBattery() >= this.getSAT2().getTransmitionCost()
+                && !(this.getSAT2().getObservations().isEmpty())) {
             chld.getSAT1().transmit();
             chld.getSAT2().transmit();
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction("sat1TransSat2Transmit");
             return chld;
 
@@ -769,7 +799,8 @@ public class State {
     }
 
     public int getHeuristicValue() {
-        this.heuristicValue = (observationLeft()*2) + this.SAT1.getObservations().size() + this.SAT2.getObservations().size();
+        this.heuristicValue = (observationLeft() * 2) + this.SAT1.getObservations().size()
+                + this.SAT2.getObservations().size();
         return heuristicValue;
     }
 
@@ -806,48 +837,53 @@ public class State {
     private State sat1Observe(State chld, String parentAction) {
         // Si mira el whatchArea TRUE y hay una observacion y tiene energia para
         // observar
-        if (chld.getSAT1().isWatchArea() && ((area[2][chld.getJ()] != null) || (area[1][chld.getJ()] != null))
-                && (chld.getSAT1().getBattery() >= chld.getSAT1().getObservationCost())) {
+        if (this.getSAT1().isWatchArea() && ((this.area[2][this.getJ()] != null) || (this.area[1][this.getJ()] != null))
+                && (this.getSAT1().getBattery() >= this.getSAT1().getObservationCost())) {
             // Compartida
-            if (area[2][chld.getJ()] != null) {
-                chld.getSAT1().pushObsevation(area[2][chld.getJ()]);
-                chld.removeObservtioninArea(2, chld.getJ());
+            if (this.area[2][this.getJ()] != null) {
+                chld.getSAT1().pushObsevation(this.area[2][this.getJ()]);
+                chld.removeObservtioninArea(2, this.getJ());
 
             } else {
-                chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                chld.removeObservtioninArea(1, chld.getJ());
+                chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                chld.removeObservtioninArea(1, this.getJ());
             }
 
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction(parentAction);
 
             return chld;
 
             // Si mira el whatchArea FALSE y hay una observación y tiene energia para
             // observar
-        } else if (!chld.SAT1.isWatchArea() && (area[0][chld.getJ()] != null) || (area[1][chld.getJ()] != null)
-                && (chld.getSAT1().getBattery() >= chld.getSAT1().getObservationCost())) {
+        } else if (!this.SAT1.isWatchArea()
+                && ((this.area[0][this.getJ()] != null) || (this.area[1][this.getJ()] != null))
+                && (this.getSAT1().getBattery() >= this.getSAT1().getObservationCost())) {
             // No compartida
-            if (area[0][chld.getJ()] != null) {
-                chld.getSAT1().pushObsevation(area[0][chld.getJ()]);
-                chld.removeObservtioninArea(0, chld.getJ());
+            if (this.area[0][this.getJ()] != null) {
+                chld.getSAT1().pushObsevation(this.area[0][this.getJ()]);
+                chld.removeObservtioninArea(0, this.getJ());
 
             } else {
-                chld.getSAT1().pushObsevation(area[1][chld.getJ()]);
-                chld.removeObservtioninArea(1, chld.getJ());
+                chld.getSAT1().pushObsevation(this.area[1][this.getJ()]);
+                chld.removeObservtioninArea(1, this.getJ());
             }
 
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
 
             chld.setParentAction(parentAction);
 
@@ -859,24 +895,26 @@ public class State {
     private State sat2Observe(State chld, String parentAction) {
         // Si mira el whatchArea TRUE y hay una observacion y tiene energia para
         // observar
-        if (chld.getSAT2().isWatchArea() && ((area[2][chld.getJ()] != null) || (area[1][chld.getJ()] != null))
-                && (chld.getSAT2().getBattery() >= chld.getSAT2().getObservationCost())) {
+        if (this.getSAT2().isWatchArea() && ((this.area[2][this.getJ()] != null) || (this.area[1][this.getJ()] != null))
+                && (this.getSAT2().getBattery() >= this.getSAT2().getObservationCost())) {
             // Compartida
-            if (area[2][chld.getJ()] != null) {
-                chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                chld.removeObservtioninArea(2, chld.getJ());
+            if (this.area[2][this.getJ()] != null) {
+                chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                chld.removeObservtioninArea(2, this.getJ());
 
             } else {
-                chld.getSAT2().pushObsevation(area[1][chld.getJ()]);
-                chld.removeObservtioninArea(1, chld.getJ());
+                chld.getSAT2().pushObsevation(this.area[1][this.getJ()]);
+                chld.removeObservtioninArea(1, this.getJ());
             }
 
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
             chld.setParentAction(parentAction);
 
             return chld;
@@ -887,24 +925,27 @@ public class State {
             // No tiene que tener el this???
             // No tiene que tener el this???
 
-        } else if (!chld.SAT2.isWatchArea() && (area[3][chld.getJ()] != null) || (area[2][chld.getJ()] != null)
-                && (chld.getSAT2().getBattery() >= chld.getSAT2().getObservationCost())) {
+        } else if (!this.SAT2.isWatchArea()
+                && ((this.area[3][this.getJ()] != null) || (this.area[2][this.getJ()] != null))
+                && (this.getSAT2().getBattery() >= this.getSAT2().getObservationCost())) {
             // No compartida
-            if (area[3][chld.getJ()] != null) {
-                chld.getSAT2().pushObsevation(area[3][chld.getJ()]);
-                chld.removeObservtioninArea(3, chld.getJ());
+            if (this.area[3][this.getJ()] != null) {
+                chld.getSAT2().pushObsevation(this.area[3][this.getJ()]);
+                chld.removeObservtioninArea(3, this.getJ());
 
             } else {
-                chld.getSAT2().pushObsevation(area[2][chld.getJ()]);
-                chld.removeObservtioninArea(2, chld.getJ());
+                chld.getSAT2().pushObsevation(this.area[2][this.getJ()]);
+                chld.removeObservtioninArea(2, this.getJ());
             }
 
             chld.setParent(this);
             chld.setCostValue(this.getCostValue() + 1);
             if (!(this.getJ() == 11))
                 chld.setJ(this.getJ() + 1);
-            else
+            else {
                 chld.setJ(0);
+                chld.setCostValue(chld.getCostValue() + 12);
+            }
 
             chld.setParentAction(parentAction);
 
@@ -942,21 +983,21 @@ public class State {
     }
 
     public String toString() {
-        return "f(n) = " + this.getFunctionValue() + "\n" + "Parent Action = " + this.parentAction + "\n"
-                + "Sat1: Battery = " + this.SAT1.getBattery() + "\n" + "\tObservations = " + this.SAT1.getObservations()
-                + "\n" + "\tWatchArea = " + this.SAT1.isWatchArea() + "\n" + "Sat2: Battery = " + this.SAT2.getBattery()
-                + "\n" + "\tObservations = " + this.SAT2.getObservations() + "\n" + "\tWatchArea = "
-                + this.SAT2.isWatchArea() + "\n" + areaToString();
+        return "Franja horaria: " + this.getJ() + "\n" + "f(n) = " + this.getFunctionValue() + "\n" + "Parent Action = "
+                + this.parentAction + "\n" + "Sat1: Battery = " + this.SAT1.getBattery() + "\n" + "\tObservations = "
+                + this.SAT1.getObservations() + "\n" + "\tWatchArea = " + this.SAT1.isWatchArea() + "\n"
+                + "Sat2: Battery = " + this.SAT2.getBattery() + "\n" + "\tObservations = " + this.SAT2.getObservations()
+                + "\n" + "\tWatchArea = " + this.SAT2.isWatchArea() + "\n" + areaToString();
     }
-    
-    private String[][] area2(State a){
-    	String aa[][] = new String [a.getArea().length][a.getArea()[0].length];
-    	for(int i =0; i<aa.length; i++) {
-    		for(int j = 0; j<aa[i].length; j++) {
-    			aa[i][j] = a.getArea()[i][j];
-    		}
-    	}
-    	
-    	return aa;
+
+    private String[][] area2(State a) {
+        String aa[][] = new String[a.getArea().length][a.getArea()[0].length];
+        for (int i = 0; i < aa.length; i++) {
+            for (int j = 0; j < aa[i].length; j++) {
+                aa[i][j] = a.getArea()[i][j];
+            }
+        }
+
+        return aa;
     }
 }

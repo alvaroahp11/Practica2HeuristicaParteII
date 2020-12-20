@@ -3,6 +3,7 @@ package cosmos;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import manageStates.*;
 import exceptions.CosmosException;
@@ -129,8 +130,17 @@ public class Cosmos {
 		
 
 		State finalState = AStarAlgorithm.aStartInit(initialState);
+		ArrayList<State> camino = new ArrayList<State>();
 		
+		while(finalState.getParent() != null) {
+		    camino.add(finalState);
+		    finalState = finalState.getParent();
+		}
+		camino.add(finalState);
 		
+		for (State state : camino) {
+            System.out.println(state);
+        }
 		
 		
 		
