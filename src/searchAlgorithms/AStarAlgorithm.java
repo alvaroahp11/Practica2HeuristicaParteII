@@ -30,7 +30,7 @@ public class AStarAlgorithm {
 
         State aux = null;
         int i = 1;
-        while (!(openList.isEmpty()) || success == true) {
+        while (!(openList.isEmpty()) && success != true) {
             System.out.println(i);
             i++;
             aux = openList.poll();

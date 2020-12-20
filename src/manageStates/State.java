@@ -849,7 +849,7 @@ public class State {
             else
                 chld.setJ(0);
 
-            chld.setParentAction("sat1ObserveSat2Spin");
+            chld.setParentAction(parentAction);
 
             return chld;
         }
