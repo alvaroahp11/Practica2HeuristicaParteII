@@ -111,14 +111,24 @@ public class Cosmos {
         camino.remove(camino.size()-1);
         int i = 1;
         String [] aux = null;
+        new File("./output").mkdirs();
         File myObj = new File("./output/problema.prob.output");
         FileWriter myWriter = new FileWriter(myObj);
         while(!camino.isEmpty()) {
-            String Sat1 = null;
-            Sat1 = jobDone(camino.remove(camino.size()-1));
-            aux = Sat1.split(";");
-            myWriter.write(i+". SAT1: "+aux[0]+", SAT2: "+aux[1]+"\n");
-            i++;
+            String SatsContent = null;           
+            if(camino.get(camino.size()-1).getJ() == 0 && camino.get(camino.size()-1).getParent().getJ() == 11){
+                SatsContent = jobDone(camino.remove(camino.size()-1));
+                aux = SatsContent.split(";");
+                for (int j = 0; j < 12; j++) {
+                    myWriter.write(i+". SAT1: "+"Nothing"+", SAT2: "+"Nothing"+"\n");
+                    i++;
+                }
+            }else {
+                SatsContent = jobDone(camino.remove(camino.size()-1));
+                aux = SatsContent.split(";");
+                myWriter.write(i+". SAT1: "+aux[0]+", SAT2: "+aux[1]+"\n");
+                i++;
+            }
         }
         myWriter.close();
     }

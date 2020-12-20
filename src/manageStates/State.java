@@ -99,23 +99,23 @@ public class State {
             childrens.add(aux);
         }
 
-        if ((aux = sat1TransSat2Nothing()) != null) {
+        if ((aux = sat1TransmitSat2Nothing()) != null) {
             childrens.add(aux);
         }
 
-        if ((aux = sat1TransSat2Observe()) != null) {
+        if ((aux = sat1TransmitSat2Observe()) != null) {
             childrens.add(aux);
         }
 
-        if ((aux = sat1TransSat2Spin()) != null) {
+        if ((aux = sat1TransmitSat2Spin()) != null) {
             childrens.add(aux);
         }
 
-        if ((aux = sat1TransSat2Charge()) != null) {
+        if ((aux = sat1TransmitSat2Charge()) != null) {
             childrens.add(aux);
         }
 
-        if ((aux = sat1TransSat2Transmit()) != null) {
+        if ((aux = sat1TransmitSat2Transmit()) != null) {
             childrens.add(aux);
         }
 
@@ -637,7 +637,7 @@ public class State {
         return null;
     }
 
-    private State sat1TransSat2Nothing() {
+    private State sat1TransmitSat2Nothing() {
         State chld = new State(this);
         if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
                 && !(this.getSAT1().getObservations().isEmpty())) {
@@ -650,25 +650,25 @@ public class State {
                 chld.setJ(0);
                 // chld.setCostValue(chld.getCostValue() + 12);
             }
-            chld.setParentAction("sat1TransSat2Nothing");
+            chld.setParentAction("sat1TransmitSat2Nothing");
             return chld;
         }
         return null;
     }
 
-    private State sat1TransSat2Observe() {
+    private State sat1TransmitSat2Observe() {
         State chld = new State(this);
         if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
                 && !(this.getSAT1().getObservations().isEmpty())) {
             chld.getSAT1().transmit();
 
-            return sat2Observe(chld, "sat1TransSat2Observe");
+            return sat2Observe(chld, "sat1TransmitSat2Observe");
         }
 
         return null;
     }
 
-    private State sat1TransSat2Spin() {
+    private State sat1TransmitSat2Spin() {
 
         State chld = new State(this);
         if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
@@ -684,14 +684,14 @@ public class State {
                 chld.setJ(0);
                 // chld.setCostValue(chld.getCostValue() + 12);
             }
-            chld.setParentAction("sat1TransSat2Spin");
+            chld.setParentAction("sat1TransmitSat2Spin");
             return chld;
         }
 
         return null;
     }
 
-    private State sat1TransSat2Charge() {
+    private State sat1TransmitSat2Charge() {
         State chld = new State(this);
         if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
                 && !(this.getSAT1().getObservations().isEmpty())
@@ -706,14 +706,14 @@ public class State {
                 chld.setJ(0);
                 // chld.setCostValue(chld.getCostValue() + 12);
             }
-            chld.setParentAction("sat1TransSat2Charge");
+            chld.setParentAction("sat1TransmitSat2Charge");
             return chld;
         }
 
         return null;
     }
 
-    private State sat1TransSat2Transmit() {
+    private State sat1TransmitSat2Transmit() {
         State chld = new State(this);
         if (this.getSAT1().getBattery() >= this.getSAT1().getTransmitionCost()
                 && !(this.getSAT1().getObservations().isEmpty())
@@ -729,7 +729,7 @@ public class State {
                 chld.setJ(0);
                 // chld.setCostValue(chld.getCostValue() + 12);
             }
-            chld.setParentAction("sat1TransSat2Transmit");
+            chld.setParentAction("sat1TransmitSat2Transmit");
             return chld;
 
         }
