@@ -55,7 +55,7 @@ public class Cosmos {
 		return data;
 	}
 
-	public static State firstState(String data[]) {
+	public static State firstState(String data[], String typeOfHeuristic) {
 		Satelite SAT1 = null;
 		Satelite SAT2 = null;
 		String area[][] = new String[4][12];
@@ -94,7 +94,11 @@ public class Cosmos {
         }
 		SAT2 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 
-		return new State(SAT1, SAT2, area);
+		
+		if(typeOfHeuristic.equals("heuristica1"))
+		    return new State(SAT1, SAT2, area, true);
+		else
+		    return new State(SAT1, SAT2, area, false);
 	}
 	
 	public static String jobDone (State a) {
@@ -107,7 +111,7 @@ public class Cosmos {
 	
 
     
-    public static void writeOutput(ArrayList<State> camino) throws IOException {
+    public static int writeOutput(ArrayList<State> camino) throws IOException {
         camino.remove(camino.size()-1);
         int i = 1;
         String [] aux = null;
@@ -131,9 +135,10 @@ public class Cosmos {
             }
         }
         myWriter.close();
+		return i-1;
     }
 
-	public static void main(String args[]) throws CosmosException, FileNotFoundException {
+	public static void main(String args[]) throws CosmosException {
 	    long start = System.currentTimeMillis();
 		// Check the arguments
 		checkArguments(args);
@@ -161,24 +166,40 @@ public class Cosmos {
 			throw e;
 		}
 
-		State initialState = firstState(data);
+		State initialState = firstState(data,args[1]);
 
-		
+		AStarAlgorithm aStar = new AStarAlgorithm();
 
-		State finalState = AStarAlgorithm.aStartInit(initialState);
+		State finalState = aStar.aStartInit(initialState);
 		
 		//States to complete the job
         ArrayList<State> camino = finalState.getPath();
-        //Create output
+        
+		//Long Plan && Coste total
+		int longPlan = 0;
+		//Create output
+		
         try {
-            writeOutput(camino);
+            longPlan = writeOutput(camino);
         } catch (IOException e) {
             e.printStackTrace();
         }
         
         long finish = System.currentTimeMillis();
-        System.out.println("Total de tiempo "+(finish-start));
+
+        try {
+			File myObj = new File("./output/problema.prob.statistics");
+        	FileWriter myWriter = new FileWriter(myObj);
+			myWriter.write("Tiempo total: "+ (finish-start) +"\nCoste total: "+longPlan+"\nLongitud del plan: "+longPlan+"\nNodos expandidos: "+aStar.getExpandedNodes());
+			myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+       
+	
 		
+
+
 
 	}
 

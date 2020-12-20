@@ -19,15 +19,20 @@ public class State {
     private int heuristicValue;
     private String parentAction;
     private int functionValue;
+    private boolean typeOfHeuristic;
 
     // por ahora sin heuristica es igual al cost
     public int getFunctionValue() {
-        this.functionValue = this.getCostValue() + this.getHeuristicValue();
+        if(typeOfHeuristic) {
+            this.functionValue = this.getCostValue() + this.getHeuristicValue1();
+        }else {
+            this.functionValue = this.getCostValue() + this.getHeuristicValue2();
+        }
         return functionValue;
     }
 
     // Initial constructor
-    public State(Satelite SAT1, Satelite SAT2, String area[][]) {
+    public State(Satelite SAT1, Satelite SAT2, String area[][], boolean typeOfHeuristic) {
         this.SAT1 = SAT1;
         this.SAT2 = SAT2;
         this.area = area;
@@ -40,6 +45,7 @@ public class State {
         this.heuristicValue = 0;// no es cero ver cuando implementemos get heuristic
         this.functionValue = 0;
         this.parentAction = "";
+        this.typeOfHeuristic = typeOfHeuristic;
     }
 
     public State(State copy) {
@@ -50,9 +56,10 @@ public class State {
         this.j = copy.getJ();
         this.parent = copy.getParent();
         this.costValue = copy.getCostValue();
-        this.heuristicValue = copy.getHeuristicValue();
+        this.heuristicValue = copy.getHeuristicValue1();
         this.functionValue = copy.getFunctionValue();
         this.parentAction = copy.getParentAction();
+        this.typeOfHeuristic = copy.typeOfHeuristic;
     }
 
     public ArrayList<State> getChildrens() {
@@ -769,6 +776,8 @@ public class State {
     public void setSAT2(Satelite sAT2) {
         SAT2 = sAT2;
     }
+    
+    
 
     public String[][] getArea() {
         return area;
@@ -802,9 +811,14 @@ public class State {
         this.costValue = costValue;
     }
 
-    public int getHeuristicValue() {
-        this.heuristicValue = (observationLeft() * 2) + this.SAT1.getObservations().size()
+    public int getHeuristicValue1() {
+        this.heuristicValue = (observationLeft()) + this.SAT1.getObservations().size()
                 + this.SAT2.getObservations().size();
+        return heuristicValue;
+    }
+    
+    public int getHeuristicValue2() {
+        this.heuristicValue = (observationLeft());
         return heuristicValue;
     }
 
