@@ -25,14 +25,14 @@ public class AStarAlgorithm {
 
         });
         openList.add(state);
-        ArrayList<State> closeList = new ArrayList<State>();
+        ArrayList<String> closeList = new ArrayList<String>();
         boolean success = false;
 
         State aux = null;
         while (!(openList.isEmpty()) && success != true) {
             aux = openList.poll();
-            if (!(closeList.contains(aux))) {
-                System.out.println(aux);
+            if (!(closeList.contains(aux.getStateHash()))) {
+                //System.out.println(aux);
                 if (aux.isFinal()) {
                     success = true;
                 } else {
@@ -40,7 +40,7 @@ public class AStarAlgorithm {
                     while (!(childrens.isEmpty())) {
                         openList.add(childrens.remove(0));
                     }
-                    closeList.add(aux);
+                    closeList.add(aux.getStateHash());
                 }
             }
 
