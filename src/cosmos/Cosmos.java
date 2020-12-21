@@ -60,7 +60,7 @@ public class Cosmos {
 		Satelite SAT2 = null;
 		String area[][] = new String[4][12];
 			
-		//Aquí se extraen los valores de las coordenadas 
+		//Aquï¿½ se extraen los valores de las coordenadas 
 		String coordinate[] = data[0].split(";");	
 		for (int j = 0; j < coordinate.length; j++) {
 			int start = (coordinate[j].indexOf("(") + 1);
@@ -75,7 +75,7 @@ public class Cosmos {
 		
 		
 		
-		//aquí se extraen las configuraciones del satelite 1  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
+		//aquï¿½ se extraen las configuraciones del satelite 1  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
 		String satData[] = data[1].split(";"); 
 		
 	    //quitar espacios en todos los satData[]
@@ -84,7 +84,7 @@ public class Cosmos {
 		}
 		SAT1 = new Satelite(Integer.parseInt(satData[4]), Integer.parseInt(satData[0]), Integer.parseInt(satData[1]), Integer.parseInt(satData[2]),Integer.parseInt(satData[3]));
 		
-		//aquí se extraen las configuraciones del satelite 2  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
+		//aquï¿½ se extraen las configuraciones del satelite 2  satData[0] -> observationCost ; satData[1] -> transmitionCost ; satData[2] -> spinCost ; satData[3] -> chargeUnit, satData[4] -> battery
 		satData = null;
 		satData = data[2].split(";");
 		
@@ -137,6 +137,17 @@ public class Cosmos {
         myWriter.close();
 		return i-1;
     }
+    
+	public static void writeStatistics(long start, AStarAlgorithm aStar, int longPlan, long finish) {
+		try {
+			File myObj = new File("./output/problema.prob.statistics");
+        	FileWriter myWriter = new FileWriter(myObj);
+			myWriter.write("Tiempo total: "+ (finish-start) +"\nCoste total: "+longPlan+"\nLongitud del plan: "+longPlan+"\nNodos expandidos: "+aStar.getExpandedNodes());
+			myWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 
 	public static void main(String args[]) throws CosmosException {
 	    long start = System.currentTimeMillis();
@@ -187,14 +198,7 @@ public class Cosmos {
         
         long finish = System.currentTimeMillis();
 
-        try {
-			File myObj = new File("./output/problema.prob.statistics");
-        	FileWriter myWriter = new FileWriter(myObj);
-			myWriter.write("Tiempo total: "+ (finish-start) +"\nCoste total: "+longPlan+"\nLongitud del plan: "+longPlan+"\nNodos expandidos: "+aStar.getExpandedNodes());
-			myWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        writeStatistics(start, aStar, longPlan, finish);
        
 	
 		
@@ -202,5 +206,7 @@ public class Cosmos {
 
 
 	}
+
+
 
 }

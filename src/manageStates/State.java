@@ -812,7 +812,7 @@ public class State {
     }
 
     public int getHeuristicValue1() {
-        this.heuristicValue = (observationLeft()) + this.SAT1.getObservations().size()
+        this.heuristicValue = (observationLeft()*sharedObservations()) + this.SAT1.getObservations().size()
                 + this.SAT2.getObservations().size();
         return heuristicValue;
     }
@@ -1037,7 +1037,24 @@ public class State {
             finalState = finalState.getParent();
         }
         camino.add(finalState);
-        return camino;
+        return camino; 
+    }
+
+    private int sharedObservations(){
+        for (int i = 0; i < this.area[0].length; i++) {
+            int aux = 0;
+            for (int j = 0; j < this.area.length; j++) {
+                if(this.area[j][i] != null){
+                    aux++;
+                }
+            }
+            if(aux > 1){
+            	System.out.println("1");
+                return 1;
+            }            
+        }    
+        System.out.println("2");
+        return 2;
     }
 
 }

@@ -1,8 +1,2 @@
-1. SAT1: Nothing, SAT2: Nothing
-2. SAT1: Observe, SAT2: Spin
-3. SAT1: Charge, SAT2: Nothing
-4. SAT1: Observe, SAT2: Observe
-5. SAT1: Charge, SAT2: Transmit
-6. SAT1: Transmit, SAT2: Nothing
-7. SAT1: Charge, SAT2: Nothing
-8. SAT1: Transmit, SAT2: Nothing
+1. SAT1: Observe, SAT2: Observe
+2. SAT1: Transmit, SAT2: Transmit
