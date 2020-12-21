@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 public class State {
 
     private Satelite SAT1;
@@ -812,8 +814,8 @@ public class State {
     }
 
     public int getHeuristicValue1() {
-        this.heuristicValue = (observationLeft()*sharedObservations()) + this.SAT1.getObservations().size()
-                + this.SAT2.getObservations().size();
+        this.heuristicValue = (observationLeft()*sharedObservations()) + Math.max(this.SAT1.getObservations().size(), this.SAT2.getObservations().size());
+        
         return heuristicValue;
     }
     
@@ -1049,11 +1051,11 @@ public class State {
                 }
             }
             if(aux > 1){
-            	System.out.println("1");
+
                 return 1;
             }            
         }    
-        System.out.println("2");
+
         return 2;
     }
 

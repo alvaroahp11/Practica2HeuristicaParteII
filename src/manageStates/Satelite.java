@@ -72,6 +72,9 @@ public class Satelite {
 	//add battery 
 	public void chargeBattery() {
 		this.battery+=this.chargeUnit;
+		if(this.battery >= this.maxBattery) {
+			this.battery = this.maxBattery;
+		}
 	}
 	
 	//Change watch area and uncharge battery
